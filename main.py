@@ -7,7 +7,7 @@ voice_client = None
 
 def main():
     with open("config.ini", "r") as config:
-        token = config.read()
+        token, path = config.readlines()
 
     client = commands.Bot(command_prefix = '/')
 
@@ -23,15 +23,15 @@ def main():
     
     @client.event
     async def on_voice_state_update(m,b,a):
-            if a.channel != None and m.id!=944922173745799238:
+            if a.channel != None and m.id!=client.user.id:
                 voice_channel = a.channel
                 global voice_client
                 voice_client = await voice_channel.connect()
-                voice_client.play(discord.FFmpegPCMAudio("1.mp3",executable="C:/ffmpeg-master-latest-win64-gpl/ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe"))
+                voice_client.play(discord.FFmpegPCMAudio("1.mp3",executable=path))
                 while voice_client.is_playing():
                     await asyncio.sleep(1)
                 await voice_client.disconnect()
-            if a.channel == None and m.id!=944922173745799238:
+            if a.channel == None and m.id!=client.user.id:
                 voice_client.stop()
                 await voice_client.disconnect()
 
