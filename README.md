@@ -5,6 +5,7 @@ The new way of old joke
 
 1. Discord.py
 2. FFmpeg
+3. pynacl
 
 ## Installation:
 
