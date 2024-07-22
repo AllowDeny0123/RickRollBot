@@ -13,7 +13,7 @@ docker run -it -d -e token="*PLACE DISCORD BOT TOKEN HERE*" rickrollbot
 ```
 docker run -it -d -e token="*PLACE DISCORD BOT TOKEN HERE*" allowdeny/rickrollbot
 ```
-Bot should be able to enter VC and speak w/ voice activation. Also might need some special intents(not tested)
+Bot should be able to enter VC and speak w/ voice activation. Also might need some special intents(not tested).
 If you not familiar with Discord bot development and etc.
 visit: https://discord.com/developers/docs/intro
 for more detailed info about bots and apps in Discord.
