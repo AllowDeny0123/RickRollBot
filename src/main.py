@@ -1,24 +1,25 @@
 import discord
 import asyncio
-from discord.ext import commands
-
+import os
 
 voice_client = None
 
 def main():
-    with open("config.ini", "r") as config:
-        token, path = config.readlines()
+    token = os.environ.get("token")
+    class aclient(discord.Client):
+        def __init__(self):
+            super().__init__(intents=discord.Intents.all())
+            self.synced = False
+            self.config = []
 
-    client = commands.Bot(command_prefix = '/')
+        async def on_ready(self):
+            if not self.synced:
+                await tree.sync()
+                self.synced = True
+            print("Ready for use as {0.user}".format(client))
 
-    @client.event
-    async def on_ready():
-        temp = client.voice_clients
-        print(*temp)
-        for cl in temp:
-            print(cl)
-            cl.disconnect()
-        print("Готов к работе!")
+    client = aclient()
+    tree = discord.app_commands.CommandTree(client)
 
     
     @client.event
@@ -27,7 +28,7 @@ def main():
                 voice_channel = a.channel
                 global voice_client
                 voice_client = await voice_channel.connect()
-                voice_client.play(discord.FFmpegPCMAudio("1.mp3",executable=path))
+                voice_client.play(discord.FFmpegPCMAudio("./assets/1.mp3"))
                 while voice_client.is_playing():
                     await asyncio.sleep(1)
                 await voice_client.disconnect()
